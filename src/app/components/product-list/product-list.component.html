@@ -1,0 +1,13 @@
+<div class="product-list">
+  <mat-card *ngFor="let product of products" class="product-card">
+    <img [appLoadImage]="product.imagen" alt="imagen" class="product-image">
+    <mat-card-title class="product-title">{{ product.nombre }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ product.precio }}</p>
+      <small>Stock: {{product.stock}}</small>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="product-button" (click)="ViewProducto(product.id_producto)">Ver Producto</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

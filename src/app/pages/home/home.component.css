@@ -1,0 +1,9 @@
+.home-content {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.home-content > app-product-list,
+.home-content > app-services {
+  margin-bottom: 20px;
+}

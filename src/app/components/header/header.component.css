@@ -1,0 +1,47 @@
+/* header.component.css */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: #c2def8;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade una sombra para mejorar la visibilidad */
+}
+
+.logo {
+  font-size: 24px;
+  color: #181818;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.search-field {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 20px;
+
+}
+
+
+
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+

@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<div class="login-container">
+  <mat-card>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2>Login</h2>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput id="username" formControlName="username">
+        <mat-error *ngIf="loginForm.get('username').invalid && loginForm.get('username').touched">
+          <small *ngIf="loginForm.get('username').hasError('required')">Username is required.</small>
+          <small *ngIf="loginForm.get('username').hasError('pattern')">Invalid characters in username.</small>
+          <small *ngIf="loginForm.get('username').hasError('maxlength')">Username must be at most 50 characters long.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" id="password" formControlName="password">
+        <mat-error *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
+          <small *ngIf="loginForm.get('password').hasError('required')">Password is required.</small>
+          <small *ngIf="loginForm.get('password').hasError('maxlength')">Password must be at most 50 characters long.</small>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="loginForm.invalid || isLoading">Login</button>
+      <div class="loading" [class.active]="isLoading"></div>
+    </form>
+  </mat-card>
+</div>
+
+<app-footer></app-footer>
