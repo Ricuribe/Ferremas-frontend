@@ -23,6 +23,11 @@ export class ApiRestService {
   }
 
   login(algo:any) {
-    return this.http.get(this.productsUrl, {headers: this.headers});
+    return this.http.post(`${this.baseurl}auth/login/`, algo, {headers: this.headers});
+  }
+
+  register(data:any): Observable<any> {
+
+     return this.http.post(`${this.baseurl}auth/register/`, data, {headers: this.headers});
   }
 }

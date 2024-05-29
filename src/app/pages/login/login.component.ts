@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ApiRestService} from "../../services/api-rest.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: ApiRestService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,9 +49,16 @@ export class LoginComponent implements OnInit {
           this.snackBar.open('Hecho', 'Cerrar', {
             duration: 2000
           });
+          this.router.navigate(['/home']);
         },
         error => {
           this.isLoading = false;
+          if (error.status === 400) {
+            this.snackBar.open('Error: Datos incorrectos', 'Cerrar', {
+              duration: 2000
+            });
+            return;
+          }
           this.snackBar.open('Error en el inicio de sesión', 'Cerrar', {
             duration: 2000
           });

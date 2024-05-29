@@ -1,1 +1,67 @@
-<p>register works!</p>
+<div class="register-container">
+  <mat-card>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>Registrar</h2>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput id="username" formControlName="username">
+        <mat-error *ngIf="registerForm.get('username').invalid && registerForm.get('username').touched">
+          <small *ngIf="registerForm.get('username').hasError('required')">Username is required.</small>
+          <small *ngIf="registerForm.get('username').hasError('pattern')">Invalid characters in username.</small>
+          <small *ngIf="registerForm.get('username').hasError('maxlength')">Username must be at most 50 characters long.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput id="email" formControlName="email">
+        <mat-error *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
+          <small *ngIf="registerForm.get('email').hasError('required')">Email is required.</small>
+          <small *ngIf="registerForm.get('email').hasError('email')">Invalid email format.</small>
+          <small *ngIf="registerForm.get('email').hasError('maxlength')">Email must be at most 70 characters long.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput id="first-name" formControlName="firstName">
+        <mat-error *ngIf="registerForm.get('firstName').invalid && registerForm.get('firstName').touched">
+          <small *ngIf="registerForm.get('firstName').hasError('required')">First Name is required.</small>
+          <small *ngIf="registerForm.get('firstName').hasError('maxlength')">First Name must be at most 50 characters long.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput id="last-name" formControlName="lastName">
+        <mat-error *ngIf="registerForm.get('lastName').invalid && registerForm.get('lastName').touched">
+          <small *ngIf="registerForm.get('lastName').hasError('required')">Last Name is required.</small>
+          <small *ngIf="registerForm.get('lastName').hasError('maxlength')">Last Name must be at most 50 characters long.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" id="password" formControlName="password">
+        <mat-error *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched">
+          <small *ngIf="registerForm.get('password').hasError('required')">Password is required.</small>
+          <small *ngIf="registerForm.get('password').hasError('maxlength')">Password must be at most 50 characters long.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" id="confirm-password" formControlName="confirmPassword">
+        <mat-error *ngIf="registerForm.get('confirmPassword').invalid && registerForm.get('confirmPassword').touched">
+          <small *ngIf="registerForm.get('confirmPassword').hasError('required')">Confirm Password is required.</small>
+          <small *ngIf="registerForm.get('confirmPassword').hasError('maxlength')">Confirm Password must be at most 50 characters long.</small>
+          <small *ngIf="registerForm.hasError('passwordMismatch')">Passwords must match.</small>
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid || isLoading">Registrar</button>
+      <div class="loading" [class.active]="isLoading"></div>
+    </form>
+  </mat-card>
+</div>
