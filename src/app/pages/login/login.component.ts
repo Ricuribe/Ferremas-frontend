@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ApiRestService} from "../../services/api-rest.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from "@angular/router";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: ApiRestService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private session: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
           this.snackBar.open('Hecho', 'Cerrar', {
             duration: 2000
           });
+          this.session.setSessionData('userData', response)
           this.router.navigate(['/home']);
         },
         error => {

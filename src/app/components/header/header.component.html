@@ -2,9 +2,15 @@
   <span class="logo">Ferremas</span>
   <span class="spacer"></span>
   <span class="spacer"></span>
-  <div class="user-actions">
+  <div class="user-actions" *ngIf="!isLoggedIn">
     <button mat-button routerLink="/login">Inicia sesión</button>
     <button mat-button routerLink="/register">Registrarse</button>
-    <button mat-button>Mis compras</button>
+
+  </div>
+  <div class="user-actions" *ngIf="isLoggedIn">
+    <button mat-button (click)="Logout()">Cerrar Sesión</button>
+    <button mat-button routerLink="/carrito">Carrito</button>
+    <button mat-button routerLink="/compras">Mis Compras</button>
+    <p>!! {{userData.user.username}}</p>
   </div>
 </mat-toolbar>

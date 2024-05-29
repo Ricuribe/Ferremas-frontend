@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiRestService} from "../../services/api-rest.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Router} from "@angular/router";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private restService: ApiRestService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private session: SessionService
   ) {}
 
   ngOnInit(): void {

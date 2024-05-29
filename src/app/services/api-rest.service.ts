@@ -30,4 +30,7 @@ export class ApiRestService {
 
      return this.http.post(`${this.baseurl}auth/register/`, data, {headers: this.headers});
   }
+  logout(token:any): Observable<any>{
+    return this.http.post(`${this.baseurl}auth/logout/`, {headers: this.headers});
+  }
 }

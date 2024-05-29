@@ -20,9 +20,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import {StorageModule} from '@ngx-pwa/local-storage';
+
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ComprasComponent } from './pages/compras/compras.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { RegisterComponent } from './pages/register/register.component';
     LoadImageDirective,
     ProductDetailsComponent,
     CarritoComponent,
-    RegisterComponent
+    RegisterComponent,
+    ComprasComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,8 @@ import { RegisterComponent } from './pages/register/register.component';
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    StorageModule
   ],
   providers: [provideHttpClient(withInterceptorsFromDi()), ApiRestService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
