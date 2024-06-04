@@ -7,7 +7,7 @@
       <small>Stock: {{product.stock}}</small>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button class="product-button" (click)="ViewProducto(product.id_producto)">Ver Producto</button>
+      <button mat-button [routerLink]="['/prod_detail', product.id_producto]">Ver Producto</button>
     </mat-card-actions>
   </mat-card>
 </div>
