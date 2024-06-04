@@ -18,7 +18,8 @@ export class LoadImageDirective implements OnInit{
     };
 
     imgElement.onerror = () => {
-      imgElement.src = 'http://127.0.0.1:8000/media/img_productos/82de4f83-1091-4d9d-96ca-7e0f447bee5c.jpg'; // Ruta a una imagen de marcador de posición
+      imgElement.src =
+        'https://github.com/Ricuribe/Ferremas-frontend/blob/master/sonichu.png?raw=true'; // Ruta a una imagen de marcador de posición
     };
   }
 }
