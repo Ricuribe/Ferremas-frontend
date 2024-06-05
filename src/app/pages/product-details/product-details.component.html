@@ -1,6 +1,8 @@
-<div *ngIf="product" class="product-details-container">
-  <h2>{{ product.name }}</h2>
-  <img [appLoadImage]="product.imageUrl" alt="{{ product.name }}">
-  <p>{{ product.description }}</p>
-  <p>Price: {{ product.price | currency }}</p>
+<div *ngIf="ready" class="product-details-container">
+  <h2>{{ product.nombre }}</h2>
+  <small>stock: {{product.stock}}</small>
+  <img [appLoadImage]="product.imagen" alt="{{ product.nombre }}">
+  <p>{{ product.descripcion }}</p>
+  <p>Precio: {{ product.precio | currency }}</p>
 </div>
+

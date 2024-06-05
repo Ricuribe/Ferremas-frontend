@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiRestService {
-  private baseurl = 'http://127.0.0.1:8000/api/';
-  private productsUrl = `${this.baseurl}productos/`;
+  private baseUrl = 'http://localhost:8000/api/';
+  private productsUrl = `${this.baseUrl}productos/`;
   private readonly headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
@@ -22,26 +22,39 @@ export class ApiRestService {
   }
 
   login(algo: any) {
-    return this.http.post(`${this.baseurl}auth/login/`, algo, {
+    return this.http.post(`${this.baseUrl}auth/login/`, algo, {
       headers: this.headers,
     });
   }
 
   register(data: any): Observable<any> {
-    return this.http.post(`${this.baseurl}auth/register/`, data, {
+    return this.http.post(`${this.baseUrl}auth/register/`, data, {
       headers: this.headers,
     });
   }
   logout(token: any): Observable<any> {
-    return this.http.post(`${this.baseurl}auth/logout/`, {
+    return this.http.post(`${this.baseUrl}auth/logout/`, {
       headers: this.headers,
     });
   }
   getCart(userId: number): Observable<any> {
-    return this.http.get(`${this.baseurl}/carrito/${userId}`);
+    return this.http.get(`${this.baseUrl}/carrito/${userId}/`);
   }
 
   getCartDetails(cartId: number): Observable<any> {
-    return this.http.get(`${this.baseurl}/carrito-detalle/${cartId}`);
+    return this.http.get(`${this.baseUrl}/carrito-detalle/${cartId}/`);
   }
+
+  getProductDetails(id: number): Observable<any> {
+    return this.http.get(`${this.productsUrl}${id}/`);
+  }
+
+  getSingleCategory(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}categorias/${id}/`);
+  }
+
+  getSingleType(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}tipos/${id}/`);
+  }
+
 }
