@@ -17,7 +17,7 @@ export class CarritoComponent {
   ) {}
 
   ngOnInit(): void {
-    this.sessionService.getSessionData('user').subscribe((user: any) => {
+    this.sessionService.getSessionData().subscribe((user: any) => {
       if (user && user.id) {
         this.loadCart(user.id);
       }

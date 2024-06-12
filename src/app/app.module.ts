@@ -11,7 +11,7 @@ import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {ApiRestService} from "./services/api-rest.service";
 import { LoginComponent } from './pages/login/login.component';
 import { LoadImageDirective } from './directives/load-image.directive';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatFormField} from "@angular/material/form-field";
 import { MatCardModule } from '@angular/material/card';
@@ -41,20 +41,21 @@ import { ComprasComponent } from './pages/compras/compras.component';
     RegisterComponent,
     ComprasComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgOptimizedImage,
-    ReactiveFormsModule,
-    MatFormField,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    StorageModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgOptimizedImage,
+        ReactiveFormsModule,
+        MatFormField,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule,
+        StorageModule,
+        FormsModule
+    ],
   providers: [provideHttpClient(withInterceptorsFromDi()), ApiRestService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })

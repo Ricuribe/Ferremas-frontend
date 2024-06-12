@@ -5,23 +5,22 @@ import {Observable, Subscription} from "rxjs";
   providedIn: 'root'
 })
 export class SessionService {
-
+  userkey:string = 'user';
   constructor(private localStorage: StorageMap) { }
 
-  setSessionData(key: string, data: any): Subscription {
-    return this.localStorage.set(key, data).subscribe(() => {});
+  setSessionData(data: any): Observable<any> {
+    return this.localStorage.set(this.userkey, data)
   }
 
-  getSessionData(key: string): Observable<any> {
-    return this.localStorage.get(key);
+  getSessionData(): Observable<any> {
+    return this.localStorage.get(this.userkey);
   }
 
-  removeSessionData(key: string): Subscription {
-    return this.localStorage.delete(key).subscribe(() => {});
+  removeSessionData(): Subscription {
+    return this.localStorage.delete(this.userkey).subscribe(() => {});
   }
 
-  hasSessionData(key: string): Observable<boolean> {
-    return this.localStorage.has(key);
+  hasSessionData(): Observable<boolean> {
+    return this.localStorage.has(this.userkey);
   }
-
 }

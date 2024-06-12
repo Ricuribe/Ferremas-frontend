@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SessionService} from "../../services/session.service";
 
 
 @Component({
@@ -9,11 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   products: any[] = [];
   services: any[] = [];
+  test:any  = ""
 
-  constructor() { }
+  constructor(private storage:SessionService) { }
 
   ngOnInit(): void {
     // this.apiService.getProducts().subscribe(data => this.products = data);
     // this.apiService.getServices().subscribe(data => this.services = data);
   }
+
 }

@@ -51,8 +51,12 @@ export class LoginComponent implements OnInit {
           this.snackBar.open('Hecho', 'Cerrar', {
             duration: 2000
           });
-          this.session.setSessionData('userData', response)
-          this.router.navigate(['/home']);
+          this.session.setSessionData(response).subscribe(
+            (a) => {
+              console.log("creando sesion: " + a)
+              this.router.navigate(['/home']);
+            }
+          )
         },
         error => {
           this.isLoading = false;

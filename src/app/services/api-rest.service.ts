@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiRestService {
   private baseUrl = 'http://localhost:8000/api/';
   private productsUrl = `${this.baseUrl}productos/`;
-  private readonly headers: HttpHeaders;
+  private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
@@ -32,10 +32,11 @@ export class ApiRestService {
       headers: this.headers,
     });
   }
-  logout(token: any): Observable<any> {
+  logout(token: any){
+    this.headers.append('Authorization', `Token ${token}`)
     return this.http.post(`${this.baseUrl}auth/logout/`, {
       headers: this.headers,
-    });
+    })
   }
   getCart(userId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/carrito/${userId}/`);

@@ -13,7 +13,9 @@ import {StorageMap} from "@ngx-pwa/local-storage";
 export class HeaderComponent implements OnInit {
 
   isLoggedIn: boolean = true;
-  userData: any = ""
+  userData: any = {
+    "user": ""
+  }
 
   constructor(private sessionService: SessionService,
               private apiService: ApiRestService,
@@ -23,14 +25,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.sessionService.hasSessionData('userSession').subscribe((exists: boolean) => {
+    this.sessionService.hasSessionData().subscribe((exists: boolean) => {
       this.isLoggedIn = exists;
       console.log(this.isLoggedIn);
       console.log(exists);
       if (!exists) {
         return false
       }
-      this.sessionService.getSessionData('userSession').subscribe((data: any) => {
+      this.sessionService.getSessionData().subscribe((data: any) => {
         this.userData = data;
         console.log(data);
       });
@@ -40,18 +42,18 @@ export class HeaderComponent implements OnInit {
 
   Logout() {
 
-    this.storage.clear()
-    this.snackBar.open('Ha cerrado sesión', 'Cerrar', {
-      duration: 2000
-    });
-    this.router.navigate(['/home']);
-    return;
+
+
     this.apiService.logout(this.userData.token).subscribe(
       response => {
         this.snackBar.open('Ha cerrado sesión', 'Cerrar', {
           duration: 2000
         });
-
+        this.storage.clear()
+        this.snackBar.open('Ha cerrado sesión 2', 'Cerrar', {
+          duration: 2000
+        });
+        this.router.navigate(['/home']);
       },
       error => {
         if (error.status === 400) {
@@ -60,7 +62,7 @@ export class HeaderComponent implements OnInit {
           });
           return;
         }
-        this.snackBar.open('Error en el inicio de sesión', 'Cerrar', {
+        this.snackBar.open('Error en el cierre de sesión', 'Cerrar', {
           duration: 2000
         });
       }

@@ -1,8 +1,37 @@
-<div *ngIf="ready" class="product-details-container">
-  <h2>{{ product.nombre }}</h2>
-  <small>stock: {{product.stock}}</small>
-  <img [appLoadImage]="product.imagen" alt="{{ product.nombre }}">
-  <p>{{ product.descripcion }}</p>
-  <p>Precio: {{ product.precio | currency }}</p>
-</div>
+<app-header>
 
+</app-header>
+<div *ngIf="ready" class="product-details-container">
+  <a routerLink="/home" class="back-link">← Volver</a>
+  <div class="product-content">
+    <div class="product-images">
+      <img [appLoadImage]="product.imagen" alt="{{ product.nombre }}" class="main-image">
+    </div>
+    <div class="product-info">
+      <h1>{{ product.nombre }}</h1>
+      <div class="product-price">
+        <span class="current-price" *ngIf="product.precioConDescuento; else noDiscount">{{ product.precioConDescuento | currency }}</span>
+        <span class="original-price" *ngIf="product.precioConDescuento">{{ product.precio | currency }}</span>
+        <ng-template #noDiscount>
+          <span class="current-price">{{ product.precio | currency }}</span>
+        </ng-template>
+      </div>
+      <div class="product-actions">
+        <div class="quantity-selector">
+          <button (click)="decrementQuantity()">-</button>
+          <input type="number" [(ngModel)]="quantity" min="1" max="999">
+          <button (click)="incrementQuantity()">+</button>
+        </div>
+        <button (click)="addToCart()" class="add-to-cart-button">Agregar al Carro</button>
+      </div>
+      <div class="product-specs">
+        <h3>Descripción del producto:</h3>
+        <p>{{product.descripcion}}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div *ngIf="!ready" class="loading-container">
+  <img ngSrc="assets/images/loading.gif" alt="Cargando..." height="480" width="475">
+</div>
