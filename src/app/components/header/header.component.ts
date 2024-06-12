@@ -27,8 +27,7 @@ export class HeaderComponent implements OnInit {
     // @ts-ignore
     this.sessionService.hasSessionData().subscribe((exists: boolean) => {
       this.isLoggedIn = exists;
-      console.log(this.isLoggedIn);
-      console.log(exists);
+      console.log("Usuario existe?: ", exists);
       if (!exists) {
         return false
       }
@@ -46,10 +45,12 @@ export class HeaderComponent implements OnInit {
 
     this.apiService.logout(this.userData.token).subscribe(
       response => {
+        this.storage.clear()
+        return;
         this.snackBar.open('Ha cerrado sesión', 'Cerrar', {
           duration: 2000
         });
-        this.storage.clear()
+
         this.snackBar.open('Ha cerrado sesión 2', 'Cerrar', {
           duration: 2000
         });
@@ -65,6 +66,7 @@ export class HeaderComponent implements OnInit {
         this.snackBar.open('Error en el cierre de sesión', 'Cerrar', {
           duration: 2000
         });
+        this.storage.clear().subscribe()
       }
     );
   }

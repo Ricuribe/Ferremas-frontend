@@ -15,11 +15,13 @@ export class CarritoComponent {
     private apiService: ApiRestService,
     private sessionService: SessionService
   ) {}
+//TODO: agregar funciones de query a la api y todo esto funciona
 
   ngOnInit(): void {
     this.sessionService.getSessionData().subscribe((user: any) => {
-      if (user && user.id) {
-        this.loadCart(user.id);
+      if (user && user.user) {
+        console.log("Carro qlo" , user.user)
+        this.loadCart(user.user.id);
       }
     });
   }
@@ -27,7 +29,8 @@ export class CarritoComponent {
   loadCart(userId: number): void {
     this.apiService.getCart(userId).subscribe((cart) => {
       this.cart = cart;
-      this.loadCartDetails(cart.id);
+      console.log(cart)
+      this.loadCartDetails(cart.usuario);
     });
   }
 

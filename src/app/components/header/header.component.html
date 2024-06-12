@@ -9,8 +9,8 @@
   </div>
   <div class="user-actions" *ngIf="isLoggedIn">
     <button mat-button (click)="Logout()">Cerrar Sesión</button>
-    <button mat-button routerLink="/carrito">Carrito</button>
-    <button mat-button routerLink="/compras">Mis Compras</button>
+    <button mat-button routerLink="/cart">Carrito</button>
+    <button mat-button routerLink="/shopping">Mis Compras</button>
     <p>!! {{userData.user.username}}</p>
   </div>
 </mat-toolbar>

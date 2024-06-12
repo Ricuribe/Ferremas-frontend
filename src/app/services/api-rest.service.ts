@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
+import {SessionService} from "./session.service";
 
 @Injectable({
   providedIn: 'root',
@@ -8,14 +9,31 @@ import { Observable } from 'rxjs';
 export class ApiRestService {
   private baseUrl = 'http://localhost:8000/api/';
   private productsUrl = `${this.baseUrl}productos/`;
-  private headers: HttpHeaders;
+  private  headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: 'Token 958ef3e470f7402be20c9a2d18db98541723fa2a'});
 
-  constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({
+  constructor(private http: HttpClient, private session: SessionService) {}
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      Authorization: 'Token 958ef3e470f7402be20c9a2d18db98541723fa2a'
     });
   }
+
+  private getAuthHeaders(): Observable<HttpHeaders> {
+    return new Observable(observer => {
+      this.session.getSessionData().subscribe(user => {
+        console.log("debug authHeaders",  user.token)
+        let headers = this.getHeaders().set('Authorization', `Token ${user.token}`);
+        console.log("headers: ", headers);
+        observer.next(headers);
+        observer.complete();
+      });
+    });
+  }
+
 
   GetProducts(): Observable<any> {
     return this.http.get(this.productsUrl, { headers: this.headers });
@@ -32,18 +50,23 @@ export class ApiRestService {
       headers: this.headers,
     });
   }
+  // TODO: Arreglar esta cagaita
   logout(token: any){
-    this.headers.append('Authorization', `Token ${token}`)
-    return this.http.post(`${this.baseUrl}auth/logout/`, {
-      headers: this.headers,
-    })
+    return this.getAuthHeaders().pipe(
+      switchMap(headers => {
+        console.log(headers);
+        return this.http.post(`${this.baseUrl}auth/logout/`, {
+          headers: headers,
+        })
+      })
+    )
   }
   getCart(userId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/carrito/${userId}/`);
+    return this.http.get(`${this.baseUrl}carritos/?usuario=${userId}/`, {headers: this.headers});
   }
 
   getCartDetails(cartId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/carrito-detalle/${cartId}/`);
+    return this.http.get(`${this.baseUrl}carritos-detalles/${cartId}/`);
   }
 
   getProductDetails(id: number): Observable<any> {
