@@ -54,7 +54,8 @@ export class LoginComponent implements OnInit {
           this.session.setSessionData(response).subscribe(
             (a) => {
               console.log("creando sesion: " + a)
-              this.router.navigate(['/home']);
+              this.router.navigate(['/home']).then(() => window.location.reload());
+
             }
           )
         },
