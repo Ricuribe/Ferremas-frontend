@@ -14,13 +14,17 @@ mat-card {
 
 .loading {
   margin: 0 auto;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   background-image: url("../../../assets/images/loading.gif");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   display: none;
+  align-content: center;
+}
+span a {
+  color: rgba(255, 255, 255, 0);
 }
 
 .loading.active {

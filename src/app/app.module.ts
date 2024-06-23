@@ -26,6 +26,7 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ComprasComponent } from './pages/compras/compras.component';
+import {MatRadioButton} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ComprasComponent } from './pages/compras/compras.component';
         MatToolbarModule,
         MatIconModule,
         StorageModule,
-        FormsModule
+        FormsModule,
+        MatRadioButton
     ],
   providers: [provideHttpClient(withInterceptorsFromDi()), ApiRestService, provideAnimationsAsync()],
   bootstrap: [AppComponent]

@@ -62,11 +62,11 @@ export class ApiRestService {
     )
   }
   getCart(userId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}carritos/?usuario=${userId}/`, {headers: this.headers});
+    return this.http.get(`${this.baseUrl}carritos/?usuario=${userId}`, {headers: this.headers});
   }
 
   getCartDetails(cartId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}carritos-detalles/${cartId}/`);
+    return this.http.get(`${this.baseUrl}carritos-detalles/?carrito=${cartId}`, {headers: this.headers});
   }
 
   getProductDetails(id: number): Observable<any> {

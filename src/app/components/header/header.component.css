@@ -20,8 +20,16 @@ mat-toolbar {
 }
 
 .logo {
+  margin: 0;
   font-size: 24px;
-  color: white;
+  width: 7rem;
+  height: 100px;
+  place-items: center;
+  background-image: url("../../../assets/images/hard_logo.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
 }
 
 .spacer {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SessionService } from '../../services/session.service';
 import { ApiRestService } from '../../services/api-rest.service';
+import {forkJoin, map, Observable, switchMap} from "rxjs";
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -8,43 +9,54 @@ import { ApiRestService } from '../../services/api-rest.service';
 })
 export class CarritoComponent {
   cart: any;
-  cartDetails: any[] = [];
+  cartDetails: any = [];
   totalCost: number = 0;
+  ready = false
 
   constructor(
     private apiService: ApiRestService,
     private sessionService: SessionService
   ) {}
-//TODO: agregar funciones de query a la api y todo esto funciona
 
   ngOnInit(): void {
     this.sessionService.getSessionData().subscribe((user: any) => {
       if (user && user.user) {
         console.log("Carro qlo" , user.user)
-        this.loadCart(user.user.id);
+
+        this.loadCart(user.user.id)
+      } else {
+        alert('ERROR 404: NOT FOUND')
       }
     });
+
   }
 
   loadCart(userId: number): void {
-    this.apiService.getCart(userId).subscribe((cart) => {
-      this.cart = cart;
-      console.log(cart)
-      this.loadCartDetails(cart.usuario);
-    });
-  }
-
-  loadCartDetails(cartId: number): void {
-    this.apiService.getCartDetails(cartId).subscribe((details) => {
-      this.cartDetails = details;
+    this.apiService.getCart(userId).pipe(
+      switchMap(cart => {
+        this.cart = cart;
+        return this.apiService.getCartDetails(cart[0].usuario).pipe(
+          switchMap(details => {
+            this.cartDetails = details;
+            const productObservables = details.map((item:any) =>
+              this.apiService.getProductDetails(item.producto).pipe(
+                map(producto => ({ ...item, producto }))
+              )
+            );
+            return forkJoin(productObservables);
+          })
+        );
+      })
+    ).subscribe(detailsWithProducts => {
+      this.cartDetails = detailsWithProducts;
+      console.log(detailsWithProducts)
       this.calculateTotalCost();
+      this.ready = true;
     });
   }
 
   calculateTotalCost(): void {
     this.totalCost = this.cartDetails.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+      (total:number, item:any) => total + item.producto.precio * item.cantidad, 0);
   }
 }

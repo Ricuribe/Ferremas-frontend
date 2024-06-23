@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
 import {SessionService} from "../../services/session.service";
 import {ApiRestService} from "../../services/api-rest.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -10,7 +10,7 @@ import {StorageMap} from "@ngx-pwa/local-storage";
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
 
   isLoggedIn: boolean = true;
   userData: any = {
@@ -20,11 +20,13 @@ export class HeaderComponent implements OnInit {
   constructor(private sessionService: SessionService,
               private apiService: ApiRestService,
               private snackBar: MatSnackBar,
-              private router: Router,
-              private storage: StorageMap) { }
+              protected router: Router,
+              private storage: StorageMap,
+              private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    // @ts-ignore
+
+      // @ts-ignore
     this.sessionService.hasSessionData().subscribe((exists: boolean) => {
       this.isLoggedIn = exists;
       console.log("Usuario existe?: ", exists);
@@ -37,16 +39,22 @@ export class HeaderComponent implements OnInit {
       });
     })
   }
+  ngOnChanges(changes: SimpleChanges) {
+    this.reload()
+  }
 
 
   Logout() {
 
+    this.storage.clear().subscribe(() => {
+      window.location.reload()
+      return;
+  })
 
 
     this.apiService.logout(this.userData.token).subscribe(
       response => {
-        this.storage.clear()
-        return;
+
         this.snackBar.open('Ha cerrado sesión', 'Cerrar', {
           duration: 2000
         });
@@ -57,6 +65,7 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       error => {
+
         if (error.status === 400) {
           this.snackBar.open('Error', 'Cerrar', {
             duration: 2000
@@ -69,5 +78,8 @@ export class HeaderComponent implements OnInit {
         this.storage.clear().subscribe()
       }
     );
+  }
+  reload(){
+    this.cdRef.detectChanges();
   }
 }

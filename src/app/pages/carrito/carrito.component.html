@@ -1,28 +1,43 @@
 <div class="cart-container">
   <h2>Carrito de Compras</h2>
-
-  <div class="cart-details">
+  <div class="loading-container" *ngIf="!ready">
+    <img src="/assets/images/loading.gif" alt="cargando circulito pulento">
+  </div>
+  <div class="cart-details" *ngIf="cartDetails.length > 0; else empty">
     <table>
       <thead>
         <tr>
+          <th></th>
           <th>Producto</th>
           <th>Precio</th>
           <th>Cantidad</th>
           <th>Subtotal</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of cartDetails">
-          <td>{{ item.product_name }}</td>
-          <td>{{ item.price | currency }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ (item.price * item.quantity) | currency }}</td>
+          <td class="table-image"><img [appLoadImage]="item.producto.imagen" alt="producto"></td>
+          <td>{{ item.producto.nombre}}</td>
+          <td>{{ item.producto.precio | currency }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ (item.producto.precio * item.cantidad) | currency }}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
+
+    <div class="total-container">
+      <div class="cart-total">
+        <h3>Total: {{ totalCost | currency }}</h3>
+        <button mat-button class="pay-button"> Realizar Pago</button>
+      </div>
+    </div>
   </div>
 
-  <div class="cart-total">
-    <h3>Total: {{ totalCost | currency }}</h3>
-  </div>
+  <ng-template #empty>
+    <div class="empty-cart">
+      <h4> El carrito está vacío </h4>
+    </div>
+  </ng-template>
 </div>

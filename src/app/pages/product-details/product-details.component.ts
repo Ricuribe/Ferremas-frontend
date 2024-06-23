@@ -29,7 +29,7 @@ export class ProductDetailsComponent implements OnInit {
         this.product.categoria = category.nombre;
         this.product.tipo = type.nombre;
         this.calculateDiscountedPrice()
-        this.ready = true;// Aquí se establece `ready` a `true` después de que todas las suscripciones se completen
+        this.ready = true;
         console.log(this.product);
       });
     });
