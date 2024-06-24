@@ -12,7 +12,7 @@
           <th>Precio</th>
           <th>Cantidad</th>
           <th>Subtotal</th>
-          <th></th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +22,7 @@
           <td>{{ item.producto.precio | currency }}</td>
           <td>{{ item.cantidad }}</td>
           <td>{{ (item.producto.precio * item.cantidad) | currency }}</td>
-          <td></td>
+          <td><button class="delete-button" (click)="deleteProduct(item.id)">Borrar</button></td>
         </tr>
       </tbody>
     </table>

@@ -81,4 +81,8 @@ export class ApiRestService {
     return this.http.get(`${this.baseUrl}tipos/${id}/`);
   }
 
+  deleteCartProduct(idDetail: number){
+    return this.http.delete(`${this.baseUrl}carritos-detalles/${idDetail}/`, {headers: this.headers});
+  }
+
 }

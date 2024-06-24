@@ -35,7 +35,7 @@ export class CarritoComponent {
     this.apiService.getCart(userId).pipe(
       switchMap(cart => {
         this.cart = cart;
-        return this.apiService.getCartDetails(cart[0].usuario).pipe(
+        return this.apiService.getCartDetails(cart[0].id_carrito).pipe(
           switchMap(details => {
             this.cartDetails = details;
             const productObservables = details.map((item:any) =>
@@ -59,4 +59,19 @@ export class CarritoComponent {
     this.totalCost = this.cartDetails.reduce(
       (total:number, item:any) => total + item.producto.precio * item.cantidad, 0);
   }
+
+  deleteProduct(detailId: number): void {
+    this.apiService.deleteCartProduct(detailId).subscribe(
+      (response:any) => {
+        if (response.status) {
+          if (response.status === 404 || response.status === 401) {
+            console.log('Error en el delete');
+            return;
+          }
+        }
+        window.location.reload()
+      }
+    )
+  }
+
 }
