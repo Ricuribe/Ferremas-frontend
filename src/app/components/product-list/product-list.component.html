@@ -3,7 +3,7 @@
     <img [appLoadImage]="product.imagen" alt="imagen" class="product-image">
     <mat-card-title class="product-title">{{ product.nombre }}</mat-card-title>
     <mat-card-content>
-      <p>{{ product.precio }}</p>
+      <p>{{ product.precio | currency:'$': 'symbol': '1.0-0' }}</p>
       <small>Stock: {{product.stock}}</small>
     </mat-card-content>
     <mat-card-actions>

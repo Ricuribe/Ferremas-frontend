@@ -8,12 +8,13 @@
       <img [appLoadImage]="product.imagen" alt="{{ product.nombre }}" class="main-image">
     </div>
     <div class="product-info">
+
       <h1>{{ product.nombre }}</h1>
       <div class="product-price">
         <span class="current-price" *ngIf="product.precioConDescuento; else noDiscount">{{ product.precioConDescuento | currency }}</span>
         <span class="original-price" *ngIf="product.precioConDescuento">{{ product.precio | currency }}</span>
         <ng-template #noDiscount>
-          <span class="current-price">{{ product.precio | currency }}</span>
+          <span class="current-price">{{ product.precio | currency:'$': 'symbol': '1.0-0' }}</span>
         </ng-template>
       </div>
       <div class="product-actions">
@@ -22,7 +23,7 @@
           <input type="number" [(ngModel)]="quantity" min="1" max="999">
           <button (click)="incrementQuantity()">+</button>
         </div>
-        <button (click)="addToCart()" class="add-to-cart-button">Agregar al Carro</button>
+        <button (click)="addToCart(product.id_producto, quantity)" class="add-to-cart-button">Agregar al Carro</button>
       </div>
       <div class="product-specs">
         <h3>Descripción del producto:</h3>

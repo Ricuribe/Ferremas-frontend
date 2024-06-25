@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiRestService} from "../../services/api-rest.service";
 import {forkJoin} from "rxjs";
 
@@ -13,7 +13,8 @@ export class ProductDetailsComponent implements OnInit {
   product: any;
   quantity:number = 1;
 
-  constructor(private route: ActivatedRoute, private apiService:ApiRestService) {}
+  constructor(private route: ActivatedRoute, private apiService:ApiRestService,
+              private router: Router,) {}
 
   ngOnInit(): void {
     //@ts-ignore
@@ -55,9 +56,22 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  addToCart() {
+  addToCart(id:any, cantidad: any) {
     console.log(`Agregar al carrito: ${this.product.nombre}, Cantidad: ${this.quantity}`);
-
+    const producto = {
+      "id_producto": id,
+      "cantidad": cantidad
+    }
+    this.apiService.addToCart(producto).subscribe((data:any) => {
+      if (data.message == "Product added to cart" || data.message == "Quantity changed") {
+        console.log("CORRECTOOOOOOOO", data)
+        this.router.navigate(["/cart"])
+      } else {
+        console.log("Error en el producto", data)
+        console.log(data)
+        console.log("ME CAGO EN TODOOOOOOOOOOOOOO")
+      }
+    })
   }
 
 }

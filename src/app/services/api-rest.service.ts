@@ -81,6 +81,10 @@ export class ApiRestService {
     return this.http.get(`${this.baseUrl}tipos/${id}/`);
   }
 
+  addToCart(body: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}add-to-cart/`, body, {headers: this.headers})
+  }
+
   deleteCartProduct(idDetail: number){
     return this.http.delete(`${this.baseUrl}carritos-detalles/${idDetail}/`, {headers: this.headers});
   }

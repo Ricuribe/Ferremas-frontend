@@ -19,9 +19,9 @@
         <tr *ngFor="let item of cartDetails">
           <td class="table-image"><img [appLoadImage]="item.producto.imagen" alt="producto"></td>
           <td>{{ item.producto.nombre}}</td>
-          <td>{{ item.producto.precio | currency }}</td>
+          <td>{{ item.producto.precio | currency:'$': 'symbol': '1.0-0' }}</td>
           <td>{{ item.cantidad }}</td>
-          <td>{{ (item.producto.precio * item.cantidad) | currency }}</td>
+          <td>{{ (item.producto.precio * item.cantidad) | currency:'$': 'symbol': '1.0-0' }}</td>
           <td><button class="delete-button" (click)="deleteProduct(item.id)">Borrar</button></td>
         </tr>
       </tbody>
@@ -29,7 +29,7 @@
 
     <div class="total-container">
       <div class="cart-total">
-        <h3>Total: {{ totalCost | currency }}</h3>
+        <h3>Total: {{ totalCost | currency:'$': 'symbol': '1.0-0' }}</h3>
         <button mat-button class="pay-button"> Realizar Pago</button>
       </div>
     </div>

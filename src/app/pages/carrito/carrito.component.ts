@@ -63,7 +63,7 @@ export class CarritoComponent {
   deleteProduct(detailId: number): void {
     this.apiService.deleteCartProduct(detailId).subscribe(
       (response:any) => {
-        if (response.status) {
+        if (response != null) {
           if (response.status === 404 || response.status === 401) {
             console.log('Error en el delete');
             return;
