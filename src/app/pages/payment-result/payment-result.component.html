@@ -1,0 +1,7 @@
+<div>
+  <h2>Resultado del Pago</h2>
+  <p *ngIf="status === 'completed'">¡Gracias! Tu pago ha sido procesado correctamente.</p>
+  <p *ngIf="status === 'failed'">Lo sentimos, tu pago no pudo ser procesado.</p>
+  <p *ngIf="status === 'cancelled'">Has cancelado el proceso de pago.</p>
+  <a routerLink="/">Volver a la página principal</a>
+</div>

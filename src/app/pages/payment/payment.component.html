@@ -1,0 +1,5 @@
+<div class="payment-container">
+  <h2>Confirmar Pago</h2>
+  <p>Total a pagar: {{ totalCost | currency:'$': 'symbol': '1.0-0' }}</p>
+  <button (click)="initiatePayment()">Pagar Ahora</button>
+</div>

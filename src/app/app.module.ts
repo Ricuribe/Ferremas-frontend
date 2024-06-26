@@ -27,6 +27,8 @@ import { CarritoComponent } from './pages/carrito/carrito.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ComprasComponent } from './pages/compras/compras.component';
 import {MatRadioButton} from "@angular/material/radio";
+import { PaymentComponent } from './pages/payment/payment.component';
+import { PaymentResultComponent } from './pages/payment-result/payment-result.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import {MatRadioButton} from "@angular/material/radio";
     ProductDetailsComponent,
     CarritoComponent,
     RegisterComponent,
-    ComprasComponent
+    ComprasComponent,
+    PaymentComponent,
+    PaymentResultComponent
   ],
     imports: [
         BrowserModule,

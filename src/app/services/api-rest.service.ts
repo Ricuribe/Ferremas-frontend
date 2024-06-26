@@ -9,6 +9,7 @@ import {SessionService} from "./session.service";
 export class ApiRestService {
   private baseUrl = 'http://localhost:8000/api/';
   private productsUrl = `${this.baseUrl}productos/`;
+  //TODO: ESTA CAGAITA TAMBIEN ARREGLARLA
   private  headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json',
     Accept: 'application/json',
     Authorization: 'Token 958ef3e470f7402be20c9a2d18db98541723fa2a'});

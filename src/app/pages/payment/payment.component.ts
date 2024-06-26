@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { SessionService } from '../../services/session.service';
-import { ApiRestService } from '../../services/api-rest.service';
-import {forkJoin, map, Observable, switchMap} from "rxjs";
-import {Router} from "@angular/router";
-@Component({
-  selector: 'app-carrito',
-  templateUrl: './carrito.component.html',
-  styleUrl: './carrito.component.css',
-})
-export class CarritoComponent {
-  cart: any;
-  cartDetails: any = [];
-  totalCost: number = 0;
-  ready = false
+import {PaymentService} from "../../services/payment.service";
+import {forkJoin, map, switchMap} from "rxjs";
+import {SessionService} from "../../services/session.service";
+import {ApiRestService} from "../../services/api-rest.service";
 
-  constructor(
-    private apiService: ApiRestService,
-    private sessionService: SessionService,
-    private router: Router,
-  ) {}
+@Component({
+  selector: 'app-payment',
+  templateUrl: './payment.component.html',
+  styleUrl: './payment.component.css'
+})
+export class PaymentComponent {
+
+  totalCost: number = 0; // Deberás calcular esto o pasarlo desde el carrito
+  cart: any;
+  cartDetails: any;
+  ready : boolean = false;
+
+  constructor(private paymentService: PaymentService,
+              private sessionService: SessionService,
+              private apiService: ApiRestService) {}
 
   ngOnInit(): void {
     this.sessionService.getSessionData().subscribe((user: any) => {
@@ -62,22 +62,15 @@ export class CarritoComponent {
       (total:number, item:any) => total + item.producto.precio * item.cantidad, 0);
   }
 
-  deleteProduct(detailId: number): void {
-    this.apiService.deleteCartProduct(detailId).subscribe(
-      (response:any) => {
-        if (response != null) {
-          if (response.status === 404 || response.status === 401) {
-            console.log('Error en el delete');
-            return;
-          }
-        }
-        window.location.reload()
+  initiatePayment() {
+    this.paymentService.initiatePayment(this.totalCost).subscribe(
+      (data:any) => {
+        window.location.href = `${data.url}?token_ws=${data.token}`;
+      },
+      error => {
+        console.error('Error initiating payment:', error);
       }
-    )
+    );
   }
 
-  paymentRedirect() {
-
-    this.router.navigate(['/payment']);
-  }
 }

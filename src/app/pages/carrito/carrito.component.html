@@ -30,7 +30,7 @@
     <div class="total-container">
       <div class="cart-total">
         <h3>Total: {{ totalCost | currency:'$': 'symbol': '1.0-0' }}</h3>
-        <button mat-button class="pay-button"> Realizar Pago</button>
+        <button mat-button class="pay-button" (click)="paymentRedirect()"> Realizar Pago</button>
       </div>
     </div>
   </div>
