@@ -24,8 +24,8 @@ export class ProductDetailsComponent implements OnInit {
       console.log(this.product);
 
       forkJoin([
-        this.apiService.getSingleCategory(this.product.id_producto),
-        this.apiService.getSingleType(this.product.id_producto)
+        this.apiService.getSingleCategory(this.product.categoria),
+        this.apiService.getSingleType(this.product.tipo)
       ]).subscribe(([category, type]) => {
         this.product.categoria = category.nombre;
         this.product.tipo = type.nombre;
