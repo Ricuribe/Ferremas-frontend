@@ -1,4 +1,5 @@
 _PESIMA IDEA HACER ESTA WEA CON ANGULAR CTM NUNCA MAS TOCARÉ EL FRAMEWORK QLO POR CUENTA PROPIA, CHAO_
+
 # FrontendAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.1.
